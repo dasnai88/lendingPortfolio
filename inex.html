@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя визитка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            background: #000;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(10px) rotate(240deg);
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #76cd4e, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-info {
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .contact-info p {
+            margin: 12px 0;
+            font-size: 1.1em;
+        }
+
+        .bio {
+            margin: 30px 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .skills {
+            margin: 30px 0;
+        }
+
+        .skills h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .github-btn-cat {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #6e5494 0%, #24292e 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(110, 84, 148, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .github-btn-cat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .github-btn-cat:hover::before {
+            left: 100%;
+        }
+
+        .github-btn-cat:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(110, 84, 148, 0.4);
+            background: linear-gradient(135deg, #8b6cb3 0%, #2f363d 100%);
+        }
+
+        .cat-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .github-btn-cat:hover .cat-icon {
+            transform: rotate(15deg) scale(1.2);
+        }
+
+        .paw-print {
+            position: absolute;
+            opacity: 0;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .paw-1 { top: 5px; left: 10px; }
+        .paw-2 { bottom: 5px; right: 10px; }
+
+        .github-btn-cat:hover .paw-print {
+            opacity: 0.6;
+            transform: scale(1.2);
+        }
+
+        .telegram-plane {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #0088cc 0%, #00a8ff 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .telegram-plane::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .telegram-plane:hover::before {
+            left: 100%;
+        }
+
+        .telegram-plane:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 136, 204, 0.5);
+            background: linear-gradient(135deg, #0099e6 0%, #00b8ff 100%);
+        }
+
+        .plane-icon {
+            width: 22px;
+            height: 22px;
+            transition: all 0.5s ease;
+        }
+
+        .telegram-plane:hover .plane-icon {
+            transform: translateX(5px) rotate(-30deg);
+        }
+
+        .message-bubble {
+            position: absolute;
+            opacity: 0;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .bubble-1 { top: 8px; right: 15px; }
+        .bubble-2 { bottom: 8px; left: 15px; }
+
+        .telegram-plane:hover .message-bubble {
+            opacity: 0.7;
+            transform: scale(1.3);
+        }
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .social li {
+            position: relative;
+            flex-basis: 4.5rem;
+            background: none !important;
+            padding: 0 !important;
+        }
+
+        .social li::after {
+            position: absolute;
+            content: attr(data-tooltip);
+            inset: -45% auto auto 50%;
+            z-index: -1;
+            transform: translateX(-50%);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            color: #fff;
+            background: var(--bg, #070707);
+            border-radius: 0.25rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .social li:has(a:hover, a:focus-visible)::after {
+            opacity: 1;
+            visibility: visible;
+            top: -60%;
+        }
+
+        .social a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            font-size: 1.75rem;
+            color: #070707;
+            border: 1px solid;
+            border-radius: 100%;
+            text-decoration: none;
+            outline: none;
+            overflow: hidden;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .social a > i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .social a::after {
+            position: absolute;
+            content: "";
+            top: 100%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg, #070707);
+            pointer-events: none;
+            transition: top 0.3s ease-in-out;
+        }
+
+        .social a:hover,
+        .social a:focus-visible {
+            color: #fff;
+        }
+
+        .social a:hover::after,
+        .social a:focus-visible::after {
+            top: 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+            }
+            
+            .github-btn-cat,
+            .telegram-plane {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .social a {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="space" id="space"></div>
+    
+    <div class="container">
+        <div class="content">
+            <header>
+                <h1>Ilshat</h1>
+                <ul class="social">
+                    <li data-tooltip="YouTube" style="--bg: #ff0000">
+                        <a href="https://www.youtube.com/@optimisticweb" aria-label="YouTube" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+            </header>
+            
+            <section class="contact-info">
+                <p><strong>Город🏢:</strong> Durka</p>
+                <p><strong>Почтаᯓ★:</strong> dasnai888@gmail.com</p>
+                <p><strong>Телеграм☕︎:</strong> @iamsnowdc</p>
+            </section>
+            
+            <section class="bio">
+                <p>Я учусь на программиста и мечтаю создавать удобные и красивые приложения.</p>
+            </section>
+            
+            <section class="skills">
+                <h3>Мои навыки:</h3>
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>Работа в команде</li>
+                    <li>Английский язык</li>
+                </ul>
+            </section>
+            
+            <div class="buttons-container">
+                <a href="https://github.com/dasnai88" class="github-btn-cat" target="_blank">
+                    <span class="paw-print paw-1">🐾</span>
+                    <svg class="cat-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.266 1.98-.399 3-.405 1.02.006 2.04.139 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                    GitHub с котиком
+                    <span class="paw-print paw-2">🐾</span>
+                </a>
+                
+                <a href="https://t.me/iamsnowdc" class="telegram-plane" target="_blank">
+                    <span class="message-bubble bubble-1">💬</span>
+                    <svg class="plane-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                    </svg>
+                    Написать в Telegram
+                    <span class="message-bubble bubble-2">✉️</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createSpace() {
+            const container = document.getElementById('space');
+            
+            // Создаем звезды
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 3;
+                const duration = Math.random() * 2 + 1;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${posX}vw`;
+                star.style.top = `${posY}vh`;
+                star.style.animationDelay = `${delay}s`;
+                star.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(star);
+            }
+            
+            // Создаем планеты
+            for (let i = 0; i < 3; i++) {
+                const planet = document.createElement('div');
+                planet.className = 'planet';
+                
+                const size = Math.random() * 200 + 100;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                
+                planet.style.width = `${size}px`;
+                planet.style.height = `${size}px`;
+                planet.style.left = `${posX}vw`;
+                planet.style.top = `${posY}vh`;
+                planet.style.background = `radial-gradient(circle, 
+                    hsl(${Math.random() * 360}, 70%, 60%), 
+                    transparent)`;
+                planet.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(planet);
+            }
+        }
+        
+        createSpace();
+    </script>
+</body>
+</html>
